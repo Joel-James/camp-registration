@@ -123,92 +123,6 @@ class Registration extends CI_Controller {
 	}
 
 	/**
-	 * Insert dummy data to database for testing.
-	 *
-	 * @param int $count Dummy user count.
-	 *
-	 * @return void
-	 */
-	public function insert_dummy( $count = 100 ) {
-
-		$names = array( 'Sijo', 'Joel', 'Biju', 'Sabu', 'Shintu', 'Gaius', 'Abin', 'Prem', 'Vivek', 'Adyn', 'Stephen' );
-		$gender = array( 'M', 'F' );
-		for ( $i = 0; $i < $count; $i++ ) {
-			$data = array(
-				'church'        => rand( 1, 3 ),
-				'name'          => $names[ rand( 0, count( $names ) - 1 ) ],
-				'age'           => rand( 1, 120 ),
-				'gender'        => $gender[ rand( 0, 1 ) ],
-				'accommodation' => rand( 0, 1 ),
-				'all_days'      => rand( 0, 1 ),
-				'day'           => array(
-					1 => array(
-						'available' => rand( 0, 1 ),
-						'supper'    => rand( 0, 1 ),
-					),
-					2 => array(
-						'available' => rand( 0, 1 ),
-						'breakfast' => rand( 0, 1 ),
-						'lunch'     => rand( 0, 1 ),
-						'tea'       => rand( 0, 1 ),
-						'supper'    => rand( 0, 1 ),
-					),
-					3 => array(
-						'available' => rand( 0, 1 ),
-						'breakfast' => rand( 0, 1 ),
-						'lunch'     => rand( 0, 1 ),
-						'tea'       => rand( 0, 1 ),
-						'supper'    => rand( 0, 1 ),
-					),
-					4 => array(
-						'available' => rand( 0, 1 ),
-						'breakfast' => rand( 0, 1 ),
-						'lunch'     => rand( 0, 1 ),
-						'tea'       => rand( 0, 1 ),
-						'supper'    => rand( 0, 1 ),
-					),
-				),
-			);
-
-			$this->insert_dummy_data( $data );
-		}
-	}
-
-	/**
-	 * Format and insert dummy registration data.
-	 *
-	 * Send dummy registration data to registration model in
-	 * valid format.
-	 *
-	 * @access private
-	 *
-	 * @return mixed
-	 */
-	private function insert_dummy_data( $data ) {
-
-		// Registration data.
-		$insert_data = array(
-			'church' => $data['church'],
-			'name' => $data['name'],
-			'gender' => $data['gender'],
-			'age' => $data['age'],
-			'accommodation' => $data['accommodation'],
-			'hot_water' => 0,
-			'milk' => 0,
-			'inserted_by' => 1,
-		);
-
-		// Insert attendee personal data and get attendee id.
-		$attendee_id = $this->registration_model->register( $insert_data );
-		// If attendee added, insert date and time.
-		if ( $attendee_id ) {
-			$this->insert_dates_time( $attendee_id, $data['day'] );
-		}
-
-		return ( ! empty( $attendee_id ) );
-	}
-
-	/**
 	 * Format and insert registration data.
 	 *
 	 * Send registration data to registration model in
@@ -224,13 +138,13 @@ class Registration extends CI_Controller {
 
 		// Registration data.
 		$data = array(
-			'church' => (int) $this->input->post( 'church' ),
-			'name' => trim( $this->input->post( 'name' ) ),
-			'gender' => $this->input->post( 'gender' ) === 'F' ? 'F' : 'M',
-			'age' => (int) $this->input->post( 'age' ),
-			'accommodation' => $this->input->post( 'accommodation' ) ? 1 : 0,
-			'hot_water' => $this->input->post( 'hot_water' ) ? 1 : 0,
-			'milk' => $this->input->post( 'milk' ) ? 1 : 0,
+			'church' => (int) $post['church'],
+			'name' => trim( $post['name'] ),
+			'gender' => $post['gender'] === 'F' ? 'F' : 'M',
+			'age' => (int) $post['age'],
+			'accommodation' => $post['accommodation'] ? 1 : 0,
+			'hot_water' => isset( $post['hot_water'] ) ? 1 : 0,
+			'milk' => isset( $post['milk'] ) ? 1 : 0,
 			'inserted_by' => $this->session->userdata( 'user_id' )? $this->session->userdata( 'user_id' ) : null,
 		);
 
@@ -238,7 +152,7 @@ class Registration extends CI_Controller {
 		$attendee_id = $this->registration_model->register( $data );
 		// If attendee added, insert date and time.
 		if ( $attendee_id ) {
-			$this->insert_dates_time( $attendee_id, $this->input->post( 'day' ) );
+			$this->insert_dates_time( $attendee_id, $post['day'] );
 		}
 
 		return ( ! empty( $attendee_id ) );
