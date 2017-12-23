@@ -20,22 +20,22 @@ defined( 'BASEPATH' ) or exit( 'God bless you!' );
 			<!-- sidebar menu: : style can be found in sidebar.less -->
 			<ul class="sidebar-menu" data-widget="tree">
 				<li class="header">Data Reporting</li>
-				<li class="treeview">
-					<a href="#">
-						<i class="fa fa-dashboard"></i> <span>Dashboard</span>
-						<span class="pull-right-container">
+                <li class="treeview active">
+                    <a href="<?= base_url( 'admin/report' ); ?>">
+                        <i class="fa fa-table"></i> <span>Attendee Report</span>
+                        <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
-					</a>
-				</li>
-				<li class="treeview active">
-					<a href="<?= base_url( 'admin/report' ); ?>">
-						<i class="fa fa-table"></i> <span>Attendee Report</span>
-						<span class="pull-right-container">
+                    </a>
+                </li>
+                <li class="treeview">
+                    <a href="<?= base_url( 'admin/preregistration' ); ?>">
+                        <i class="fa fa-table"></i> <span>Pre Registration</span>
+                        <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
-					</a>
-				</li>
+                    </a>
+                </li>
 			</ul>
 		</section>
 		<!-- /.sidebar -->

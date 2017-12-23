@@ -56,6 +56,8 @@ $route['logout'] = 'user/logout';
 $route['get/registrants/(:any)'] = 'registration/get_registrants/$1';
 
 $route['admin/report'] = 'admin/index';
+$route['admin/preregistration'] = 'preregistration/index';
+$route['admin/preregistration/import'] = 'preregistration/import';
 $route['admin/get-report-data'] = 'admin/get_attendees';
 $route['admin/export'] = 'admin/export_attendees';
 $route['admin/delete/attendee/(:any)'] = 'admin/delete_attendee/$1';

@@ -290,7 +290,7 @@ class Registration extends CI_Controller {
 			// Get pre registered users.
 			$data = $this->registration_model->get_registrants( $id );
 
-			$data = array_map( 'reset', $data );
+			$data['names'] = array_map( 'reset', $data );
 		}
 
 		echo json_encode( $data );
