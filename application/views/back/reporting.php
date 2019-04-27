@@ -20,22 +20,22 @@ defined( 'BASEPATH' ) or exit( 'God bless you!' );
 			<!-- sidebar menu: : style can be found in sidebar.less -->
 			<ul class="sidebar-menu" data-widget="tree">
 				<li class="header">Data Reporting</li>
-				<li class="treeview">
-					<a href="#">
-						<i class="fa fa-dashboard"></i> <span>Dashboard</span>
-						<span class="pull-right-container">
-                            <i class="fa fa-angle-left pull-right"></i>
-                        </span>
-					</a>
-				</li>
 				<li class="treeview active">
 					<a href="<?= base_url( 'admin/report' ); ?>">
-						<i class="fa fa-table"></i> <span>Attendee Report</span>
+						<span class="glyphicon glyphicon-signal"></span> Attendees
 						<span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
 					</a>
 				</li>
+                <li class="treeview">
+                    <a href="<?= base_url(); ?>" target="_blank">
+                        <span class="glyphicon glyphicon-user"></span> Registration
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                </li>
 			</ul>
 		</section>
 		<!-- /.sidebar -->
@@ -139,8 +139,6 @@ defined( 'BASEPATH' ) or exit( 'God bless you!' );
                                                     <option value="">Select day</option>
                                                     <option value="1">Day 1</option>
                                                     <option value="2">Day 2</option>
-                                                    <option value="3">Day 3</option>
-                                                    <option value="4">Day 4</option>
                                                 </select>
                                             </div>
                                         </div>
