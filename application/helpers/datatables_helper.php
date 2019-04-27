@@ -48,7 +48,7 @@ function getDeleteLink( $id ) {
 }
 
 /**
- * Get firsr letter capitalized.
+ * Get first letter capitalized.
  *
  * @param string $name String name.
  *

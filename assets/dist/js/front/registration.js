@@ -68,7 +68,7 @@ $( function ( $ ) {
             $( '.day' ).not( '.disabled' ).iCheck( 'check' );
         });
 
-        // Get the pre registered names on church selection.
+        // Get the pre-registered names on church selection.
         $( '#church' ).on( 'change', function() {
             $.getJSON( baseUrl + '/get/registrants/' + $( this ).val(), function( data ) {
                 $( "#name" ).autocomplete({
