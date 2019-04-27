@@ -5,18 +5,18 @@ defined( 'BASEPATH' ) or exit( 'God bless you!' );
 
 /**
  * Registration base class.
- * 
+ *
  * @extends CI_Controller
  */
 class Registration extends CI_Controller {
 
 	/**
 	 * Initialise class and set its properties.
-	 * 
+	 *
 	 * @access public
 	 */
 	public function __construct() {
-		
+
 		parent::__construct();
 
 		$this->load->library( array( 'session' ) );
@@ -44,7 +44,7 @@ class Registration extends CI_Controller {
 
 		// Get churches list.
 		$data['churches'] = $this->registration_model->get_churches();
-		$data['dates'] = $this->get_active_dates();
+		$data['dates']    = $this->get_active_dates();
 
 		// Render html.
 		$this->load->view( 'front/common/header' );
@@ -71,16 +71,14 @@ class Registration extends CI_Controller {
 
 		// Current camp dates.
 		$days = array(
-			1 => '24-12-2017',
-			2 => '25-12-2017',
-			3 => '26-12-2017',
-			4 => '27-12-2017',
+			1 => '11-05-2019',
+			2 => '12-05-2019',
 		);
 
 		// Loop through each days.
 		foreach ( $days as $key => $day ) {
 			// If current date is greater than the date.
-			if( strtotime( $day ) < $today ) {
+			if ( strtotime( $day ) < $today ) {
 				$days_class[ $key ] = 'disabled';
 			} else {
 				$days_class[ $key ] = '';
@@ -123,92 +121,6 @@ class Registration extends CI_Controller {
 	}
 
 	/**
-	 * Insert dummy data to database for testing.
-	 *
-	 * @param int $count Dummy user count.
-	 *
-	 * @return void
-	 */
-	public function insert_dummy( $count = 100 ) {
-
-		$names = array( 'Sijo', 'Joel', 'Biju', 'Sabu', 'Shintu', 'Gaius', 'Abin', 'Prem', 'Vivek', 'Adyn', 'Stephen' );
-		$gender = array( 'M', 'F' );
-		for ( $i = 0; $i < $count; $i++ ) {
-			$data = array(
-				'church'        => rand( 1, 3 ),
-				'name'          => $names[ rand( 0, count( $names ) - 1 ) ],
-				'age'           => rand( 1, 120 ),
-				'gender'        => $gender[ rand( 0, 1 ) ],
-				'accommodation' => rand( 0, 1 ),
-				'all_days'      => rand( 0, 1 ),
-				'day'           => array(
-					1 => array(
-						'available' => rand( 0, 1 ),
-						'supper'    => rand( 0, 1 ),
-					),
-					2 => array(
-						'available' => rand( 0, 1 ),
-						'breakfast' => rand( 0, 1 ),
-						'lunch'     => rand( 0, 1 ),
-						'tea'       => rand( 0, 1 ),
-						'supper'    => rand( 0, 1 ),
-					),
-					3 => array(
-						'available' => rand( 0, 1 ),
-						'breakfast' => rand( 0, 1 ),
-						'lunch'     => rand( 0, 1 ),
-						'tea'       => rand( 0, 1 ),
-						'supper'    => rand( 0, 1 ),
-					),
-					4 => array(
-						'available' => rand( 0, 1 ),
-						'breakfast' => rand( 0, 1 ),
-						'lunch'     => rand( 0, 1 ),
-						'tea'       => rand( 0, 1 ),
-						'supper'    => rand( 0, 1 ),
-					),
-				),
-			);
-
-			$this->insert_dummy_data( $data );
-		}
-	}
-
-	/**
-	 * Format and insert dummy registration data.
-	 *
-	 * Send dummy registration data to registration model in
-	 * valid format.
-	 *
-	 * @access private
-	 *
-	 * @return mixed
-	 */
-	private function insert_dummy_data( $data ) {
-
-		// Registration data.
-		$insert_data = array(
-			'church' => $data['church'],
-			'name' => $data['name'],
-			'gender' => $data['gender'],
-			'age' => $data['age'],
-			'accommodation' => $data['accommodation'],
-			'hot_water' => 0,
-			'milk' => 0,
-			'inserted_by' => 1,
-		);
-
-		// Insert attendee personal data and get attendee id.
-		$attendee_id = $this->registration_model->register( $insert_data );
-		// If attendee added, insert date and time.
-		if ( $attendee_id ) {
-			$this->insert_dates_time( $attendee_id, $data['day'] );
-		}
-
-		return ( ! empty( $attendee_id ) );
-	}
-
-	/**
 	 * Format and insert registration data.
 	 *
 	 * Send registration data to registration model in
@@ -220,18 +132,16 @@ class Registration extends CI_Controller {
 	 */
 	private function insert() {
 
-		$post = $this->input->post();
-
 		// Registration data.
 		$data = array(
-			'church' => (int) $this->input->post( 'church' ),
-			'name' => trim( $this->input->post( 'name' ) ),
-			'gender' => $this->input->post( 'gender' ) === 'F' ? 'F' : 'M',
-			'age' => (int) $this->input->post( 'age' ),
+			'church'        => (int) $this->input->post( 'church' ),
+			'name'          => trim( $this->input->post( 'name' ) ),
+			'gender'        => $this->input->post( 'gender' ) === 'F' ? 'F' : 'M',
+			'age'           => (int) $this->input->post( 'age' ),
 			'accommodation' => $this->input->post( 'accommodation' ) ? 1 : 0,
-			'hot_water' => $this->input->post( 'hot_water' ) ? 1 : 0,
-			'milk' => $this->input->post( 'milk' ) ? 1 : 0,
-			'inserted_by' => $this->session->userdata( 'user_id' )? $this->session->userdata( 'user_id' ) : null,
+			'hot_water'     => $this->input->post( 'hot_water' ) ? 1 : 0,
+			'milk'          => $this->input->post( 'milk' ) ? 1 : 0,
+			'inserted_by'   => $this->session->userdata( 'user_id' ) ? $this->session->userdata( 'user_id' ) : null,
 		);
 
 		// Insert attendee personal data and get attendee id.
@@ -250,8 +160,8 @@ class Registration extends CI_Controller {
 	 * Get date and time data from form and format
 	 * it to match db field.
 	 *
-	 * @param int $attendee_id Attendee ID.
-	 * @param array $dates Dates field value.
+	 * @param int   $attendee_id Attendee ID.
+	 * @param array $dates       Dates field value.
 	 *
 	 * @access private
 	 *
@@ -266,9 +176,9 @@ class Registration extends CI_Controller {
 
 		$date['attendee_id'] = $attendee_id;
 		// Loop through each days.
-		for ( $i = 1; $i <= 4; $i++ ) {
+		for ( $i = 1; $i <= 4; $i ++ ) {
 			// If the attendee is not available on this day.
-			$date[ 'day' . $i ] = isset( $dates[ $i ][ 'available' ] ) ? 1 : 0;
+			$date[ 'day' . $i ] = isset( $dates[ $i ]['available'] ) ? 1 : 0;
 		}
 
 		// Get date id after inserting date.
@@ -277,18 +187,18 @@ class Registration extends CI_Controller {
 		// If dates added, insert timing too.
 		if ( $date_id ) {
 			$timing = array();
-			for ( $i = 1; $i <= 4; $i++ ) {
+			for ( $i = 1; $i <= 4; $i ++ ) {
 				// No need enter timing if not available.
-				if ( empty( $dates[ $i ][ 'available' ] ) ) {
+				if ( empty( $dates[ $i ]['available'] ) ) {
 					continue;
 				}
 				$timing[] = array(
-					'date_id' => $date_id,
-					'day' => $i,
-					'breakfast' => isset( $dates[ $i ][ 'breakfast' ] ) ? 1 : 0,
-					'lunch' => isset( $dates[ $i ][ 'lunch' ] ) ? 1 : 0,
-					'tea' => isset( $dates[ $i ][ 'tea' ] ) ? 1 : 0,
-					'supper' => isset( $dates[ $i ][ 'supper' ] ) ? 1 : 0,
+					'date_id'   => $date_id,
+					'day'       => $i,
+					'breakfast' => isset( $dates[ $i ]['breakfast'] ) ? 1 : 0,
+					'lunch'     => isset( $dates[ $i ]['lunch'] ) ? 1 : 0,
+					'tea'       => isset( $dates[ $i ]['tea'] ) ? 1 : 0,
+					'supper'    => isset( $dates[ $i ]['supper'] ) ? 1 : 0,
 				);
 			}
 
@@ -316,7 +226,7 @@ class Registration extends CI_Controller {
 		$this->form_validation->set_rules( 'name', 'name', 'trim|required|callback_dates_required' );
 		$this->form_validation->set_rules( 'age', 'age', 'trim|required|integer|less_than[121]|greater_than[0]' );
 		$this->form_validation->set_rules( 'gender', 'gender', 'trim|required|max_length[1]' );
-		$this->form_validation->set_rules( 'day[]', 'day', 'callback_dates_required');
+		$this->form_validation->set_rules( 'day[]', 'day', 'callback_dates_required' );
 
 		return $this->form_validation->run();
 	}

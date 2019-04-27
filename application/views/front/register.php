@@ -18,6 +18,12 @@
 
 	<div class="register-box-body">
 
+        <?php if ( is_admin() ) : ?>
+        <div class="box-tools pull-right">
+            <span title="View list of registered members"><a href="<?= base_url( 'admin' ) ?>"><span class="glyphicon glyphicon-stats"></span> <b>View List</b></a></span>
+        </div>
+        <?php endif; ?>
+
 		<p class="login-box-msg">Register an attendee ( <a href="<?= base_url( 'logout' ) ?>"><b>Logout</b></a> )</p>
 
 		<?= form_open( 'registration/register' ) ?>
@@ -93,8 +99,8 @@
 									<label><input type="checkbox" name="day[1][available]" id="day1" value="1" class="day <?= $dates[1] ?>" <?= $dates[1] ?>> Day 1</label>
 								</td>
 								<td></td>
-								<td></td>
-								<td></td>
+                                <td><input type="checkbox" name="day[1][lunch]" value="1" class="day1 <?= $dates[1] ?>" disabled></td>
+                                <td><input type="checkbox" name="day[1][tea]" value="1" class="day1 <?= $dates[1] ?>" disabled></td>
 								<td><input type="checkbox" name="day[1][supper]" value="1" class="day1 <?= $dates[1] ?>" disabled></td>
 							</tr>
 							<tr>
@@ -105,24 +111,6 @@
 								<td><input type="checkbox" name="day[2][lunch]" value="1" class="day2 <?= $dates[2] ?>" disabled></td>
 								<td><input type="checkbox" name="day[2][tea]" value="1" class="day2 <?= $dates[2] ?>" disabled></td>
 								<td><input type="checkbox" name="day[2][supper]" value="1" class="day2 <?= $dates[2] ?>" disabled></td>
-							</tr>
-							<tr>
-								<td>
-									<label><input type="checkbox" name="day[3][available]" id="day3" value="1" class="day <?= $dates[3] ?>" <?= $dates[3] ?>> Day 3</label>
-								</td>
-								<td><input type="checkbox" name="day[3][breakfast]" value="1" class="day3 <?= $dates[3] ?>" disabled></td>
-								<td><input type="checkbox" name="day[3][lunch]" value="1" class="day3 <?= $dates[3] ?>" disabled></td>
-								<td><input type="checkbox" name="day[3][tea]" value="1" class="day3 <?= $dates[3] ?>" disabled></td>
-								<td><input type="checkbox" name="day[3][supper]" value="1" class="day3 <?= $dates[3] ?>" disabled></td>
-							</tr>
-							<tr>
-								<td>
-									<label><input type="checkbox" name="day[4][available]" id="day4" value="1" class="day <?= $dates[4] ?>" <?= $dates[4] ?>> Day 4</label>
-								</td>
-								<td><input type="checkbox" name="day[4][breakfast]" value="1" class="day4 <?= $dates[4] ?>" disabled></td>
-								<td><input type="checkbox" name="day[4][lunch]" value="1" class="day4 <?= $dates[4] ?>" disabled></td>
-								<td></td>
-								<td></td>
 							</tr>
 						</table>
 					</div>

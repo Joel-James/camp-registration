@@ -5,7 +5,7 @@ defined( 'BASEPATH' ) or exit( 'God bless you!' );
 
 /**
  * Registration model class.
- * 
+ *
  * @extends CI_Model
  */
 class Registration_model extends CI_Model {
@@ -18,15 +18,15 @@ class Registration_model extends CI_Model {
 	 * @return void
 	 */
 	public function __construct() {
-		
+
 		parent::__construct();
 
 		$this->load->database();
 	}
-	
+
 	/**
 	 * Insert registration data.
-	 * 
+	 *
 	 * @access public
 	 *
 	 * @param array $data Registration data.
@@ -34,7 +34,7 @@ class Registration_model extends CI_Model {
 	 * @return bool true on success, false on failure
 	 */
 	public function register( $data ) {
-		
+
 		$this->db->insert( 'registration', $data );
 
 		return $this->db->insert_id();
@@ -78,8 +78,8 @@ class Registration_model extends CI_Model {
 	 * @access public
 	 *
 	 * @param int $district District ID.
-	 * @param int $state State ID.
-	 * @param int $country Country ID.
+	 * @param int $state    State ID.
+	 * @param int $country  Country ID.
 	 *
 	 * @return array
 	 */
@@ -113,8 +113,8 @@ class Registration_model extends CI_Model {
 	 *
 	 * @access public
 	 *
-	 * @param string $name Name of person.
-	 * @param int $church Church ID.
+	 * @param string $name   Name of person.
+	 * @param int    $church Church ID.
 	 *
 	 * @return array
 	 */
