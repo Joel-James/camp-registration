@@ -18,6 +18,12 @@
 
 	<div class="register-box-body">
 
+		<?php if ( is_admin() ) : ?>
+            <div class="box-tools pull-right">
+                <span title="View list of registered members"><a href="<?= base_url( 'admin' ) ?>" target="_blank"><span class="glyphicon glyphicon-stats"></span> <b>View List</b></a></span>
+            </div>
+		<?php endif; ?>
+
 		<p class="login-box-msg">Register an attendee ( <a href="<?= base_url( 'logout' ) ?>"><b>Logout</b></a> )</p>
 
 		<?= form_open( 'registration/register' ) ?>

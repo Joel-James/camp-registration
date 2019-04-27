@@ -377,6 +377,8 @@ class Registration extends CI_Controller {
 			$data = $this->registration_model->get_registrants( $id );
 
 			$data = array_map( 'reset', $data );
+			$data = array_map( 'strtolower', $data );
+			$data = array_map( 'ucwords', $data );
 		}
 
 		echo json_encode( $data );
